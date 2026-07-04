@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lịch Sử Việt Nam</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #c0392b;
+    --gold: #d4a017;
+    --gold-light: #f5e6a3;
+    --gold-pale: #fdf8e8;
+    --ink: #1a1208;
+    --ink-mid: #3d2f10;
+    --ink-light: #7a6442;
+    --stone: #f0ebe0;
+    --border: rgba(100,70,20,0.18);
+    --timeline-line: rgba(160,110,30,0.35);
+  }
+  body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--stone); color: var(--ink); min-height: 100vh; }
+
+  /* HERO */
+  .hero { background: var(--ink); color: #fff; text-align: center; padding: 72px 24px 56px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(212,160,23,0.04) 40px, rgba(212,160,23,0.04) 80px); }
+  .hero-star { display: inline-block; width: 56px; height: 56px; margin-bottom: 20px; position: relative; }
+  .hero-star svg { width: 100%; height: 100%; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 700; letter-spacing: 0.04em; line-height: 1.15; color: #fff; position: relative; }
+  .hero h1 span { color: var(--gold); }
+  .hero p { margin-top: 14px; font-size: 1rem; color: rgba(255,255,255,0.55); font-weight: 300; letter-spacing: 0.06em; position: relative; }
+  .hero-line { width: 60px; height: 2px; background: var(--gold); margin: 20px auto 0; position: relative; }
+
+  /* ERA NAV */
+  .era-nav { position: sticky; top: 0; z-index: 100; background: var(--ink); padding: 0 16px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid rgba(212,160,23,0.25); }
+  .era-nav::-webkit-scrollbar { display: none; }
+  .era-btn { flex-shrink: 0; background: none; border: none; color: rgba(255,255,255,0.45); font-family: 'Be Vietnam Pro', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.05em; padding: 14px 18px; cursor: pointer; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; white-space: nowrap; text-transform: uppercase; }
+  .era-btn:hover, .era-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* WRAPPER */
+  .timeline-wrap { max-width: 900px; margin: 0 auto; padding: 60px 24px 80px; }
+
+  /* ERA SECTION */
+  .era-section { margin-bottom: 80px; }
+
+  /* ERA HEADER — icon + title in gold */
+  .era-header { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .era-icon-wrap { flex-shrink: 0; width: 64px; height: 64px; background: var(--ink); border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(212,160,23,0.3); }
+  .era-icon-wrap svg { width: 36px; height: 36px; }
+  .era-title-block { flex: 1; }
+  .era-title-block h2 { font-family: 'Playfair Display', serif; font-size: 1.65rem; font-weight: 700; color: var(--gold); line-height: 1.2; }
+  .era-title-block .era-period { font-size: 11px; color: var(--ink-light); font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
+  .era-title-block .era-desc { font-size: 13px; color: var(--ink-mid); margin-top: 6px; line-height: 1.6; font-style: italic; }
+
+  /* RESEARCH ANCHOR */
+  .era-research { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .research-link { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-light); text-decoration: none; padding: 4px 10px; border: 0.5px solid var(--border); border-radius: 4px; background: rgba(255,255,255,0.5); transition: color .15s, border-color .15s, background .15s; }
+  .research-link:hover { color: var(--gold); border-color: var(--gold); background: var(--gold-pale); }
+  .research-link svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+  /* TIMELINE ITEMS */
+  .timeline { position: relative; padding-left: 44px; }
+  .timeline::before { content: ''; position: absolute; left: 13px; top: 0; bottom: 0; width: 1.5px; background: var(--timeline-line); }
+  .tl-item { position: relative; margin-bottom: 28px; animation: fadeUp .4s ease both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .tl-dot { position: absolute; left: -38px; top: 12px; width: 14px; height: 14px; border-radius: 50%; background: var(--gold-pale); border: 2px solid var(--gold); box-shadow: 0 0 0 3px rgba(212,160,23,0.12); }
+  .tl-item.major .tl-dot { background: var(--gold); width: 18px; height: 18px; left: -40px; top: 10px; box-shadow: 0 0 0 4px rgba(212,160,23,0.2); }
+  .tl-card { background: #fff; border-radius: 10px; border: 0.5px solid var(--border); padding: 16px 20px; transition: box-shadow .2s; position: relative; }
+  .tl-item.major .tl-card { border-color: rgba(212,160,23,0.4); background: var(--gold-pale); }
+  .tl-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.07); }
+  .tl-year { font-size: 11px; font-weight: 600; color: var(--ink-light); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .tl-item.major .tl-year { color: var(--gold); }
+  .tl-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 6px; }
+  .tl-card p { font-size: 14px; color: var(--ink-mid); line-height: 1.75; font-weight: 400; }
+  .tl-badge { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; margin-bottom: 6px; }
+  .badge-war    { background: rgba(192,57,43,0.1);  color: #a0201a; }
+  .badge-found  { background: rgba(212,160,23,0.15); color: #7a5a00; }
+  .badge-king   { background: rgba(30,80,180,0.1);  color: #1a3a8a; }
+  .badge-culture{ background: rgba(40,140,80,0.1);  color: #1a6040; }
+  .badge-modern { background: rgba(80,40,120,0.1);  color: #4a2080; }
+
+  /* FOOTNOTES */
+  .era-footnote { margin-top: 28px; padding: 16px 20px; background: rgba(255,255,255,0.55); border-left: 2px solid var(--gold); border-radius: 0 8px 8px 0; }
+  .era-footnote-title { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 10px; }
+  .footnote-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .footnote-list li { font-size: 12.5px; color: var(--ink-mid); line-height: 1.5; display: flex; gap: 8px; align-items: flex-start; }
+  .footnote-num { flex-shrink: 0; font-size: 10px; font-weight: 700; color: var(--gold); background: rgba(212,160,23,0.15); border-radius: 3px; padding: 1px 5px; margin-top: 1px; }
+  .footnote-list a { color: var(--ink-mid); text-decoration: underline; text-decoration-color: rgba(212,160,23,0.5); text-underline-offset: 2px; transition: color .15s; }
+  .footnote-list a:hover { color: var(--gold); }
+
+  /* LEGEND BAR */
+  .legend-bar { max-width: 900px; margin: 0 auto; padding: 14px 24px; background: #fff; border-bottom: 0.5px solid var(--border); display: flex; gap: 20px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ink-mid); }
+  .ld-major { width: 13px; height: 13px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .ld-normal { width: 10px; height: 10px; border-radius: 50%; background: var(--gold-pale); border: 2px solid var(--gold); flex-shrink: 0; }
+
+  /* FOOTER */
+  .timeline-footer { text-align: center; padding: 40px 24px; font-size: 12px; color: var(--ink-light); border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; letter-spacing: 0.04em; }
+
+  /* EDITORIAL NOTE */
+  .editorial-note { max-width: 900px; margin: 0 auto 0; padding: 20px 28px; background: var(--ink); border-left: 3px solid var(--gold); }
+  .editorial-note p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.75; font-style: italic; }
+  .editorial-note strong { color: var(--gold); font-style: normal; font-weight: 600; }
+
+  /* DUAL PERSPECTIVE LAYOUT */
+  .dual-header { max-width: 900px; margin: 0 auto; padding: 48px 24px 0; }
+  .dual-header .era-section { margin-bottom: 0; }
+  .dual-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+  @media (max-width: 680px) { .dual-cols { grid-template-columns: 1fr; } }
+
+  .col-north { }
+  .col-south { }
+
+  .col-label { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 8px 8px 0 0; margin-bottom: 0; }
+  .col-label-north { background: #8B1A1A; }
+  .col-label-south { background: #1a3a6b; }
+  .col-label svg { width: 28px; height: 20px; flex-shrink: 0; }
+  .col-label-text { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; }
+  .col-label-sub { font-size: 10px; color: rgba(255,255,255,0.6); font-weight: 400; margin-top: 1px; letter-spacing: 0.05em; }
+
+  .col-timeline { background: #fff; border: 0.5px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; padding: 20px 16px; }
+  .col-timeline .timeline { padding-left: 36px; }
+  .col-timeline .timeline::before { left: 10px; }
+  .col-timeline .tl-dot { left: -32px; }
+  .col-timeline .tl-item.major .tl-dot { left: -34px; }
+  .col-timeline .tl-card { border-radius: 7px; padding: 13px 15px; }
+  .col-timeline .tl-card h3 { font-size: 0.92rem; }
+  .col-timeline .tl-card p { font-size: 13px; }
+
+  .badge-south { background: rgba(26,58,107,0.12); color: #1a3a6b; }
+  .badge-north { background: rgba(139,26,26,0.12); color: #8B1A1A; }
+
+  /* PERSPECTIVE TAG */
+  .perspective-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; margin-bottom: 5px; }
+  .pt-north { background: rgba(139,26,26,0.1); color: #8B1A1A; border: 0.5px solid rgba(139,26,26,0.25); }
+  .pt-south { background: rgba(26,58,107,0.1); color: #1a3a6b; border: 0.5px solid rgba(26,58,107,0.25); }
+  .pt-neutral { background: rgba(100,70,20,0.08); color: var(--ink-light); border: 0.5px solid var(--border); }
+
+  /* DUAL FOOTNOTE */
+  .dual-footnote { max-width: 900px; margin: -60px auto 80px; padding: 0 24px; }
+  .dual-footnote .era-footnote { margin-top: 0; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-star">
+    <svg viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="27" fill="#c0392b" stroke="rgba(255,255,255,0.2)" stroke-width="1"/><polygon points="28,10 31.5,21.5 44,21.5 33.8,28.5 37.5,40 28,33 18.5,40 22.2,28.5 12,21.5 24.5,21.5" fill="#d4a017"/></svg>
+  </div>
+  <h1>Lịch Sử <span>Việt Nam</span></h1>
+  <p>Hành trình 4.000 năm dựng nước và giữ nước</p>
+  <div class="hero-line"></div>
+</div>
+
+<nav class="era-nav" id="era-nav">
+  <button class="era-btn active" onclick="scrollToEra('era1')">Thượng cổ</button>
+  <button class="era-btn" onclick="scrollToEra('era2')">Bắc thuộc</button>
+  <button class="era-btn" onclick="scrollToEra('era3')">Độc lập sơ kỳ</button>
+  <button class="era-btn" onclick="scrollToEra('era4')">Lý – Trần</button>
+  <button class="era-btn" onclick="scrollToEra('era5')">Hậu Lê – Mạc</button>
+  <button class="era-btn" onclick="scrollToEra('era6')">Nguyễn thống nhất</button>
+  <button class="era-btn" onclick="scrollToEra('era7')">Thực dân Pháp</button>
+  <button class="era-btn" onclick="scrollToEra('era8')">Chiến tranh Đông Dương</button>
+  <button class="era-btn" onclick="scrollToEra('era8b')">VNDCCH & VNCH 1954–75</button>
+  <button class="era-btn" onclick="scrollToEra('era9')">Sau 1975 & Đổi mới</button>
+</nav>
+
+<div class="legend-bar">
+  <div class="legend-item"><div class="ld-major"></div> Sự kiện trọng đại</div>
+  <div class="legend-item"><div class="ld-normal"></div> Sự kiện thông thường</div>
+</div>
+<div class="editorial-note">
+  <p><strong>Ghi chú biên tập:</strong> Timeline này cố gắng trình bày lịch sử Việt Nam theo tiêu chuẩn học thuật quốc tế — ghi nhận <strong>các quan điểm của tất cả các phía</strong> mà không đứng về bên nào. Giai đoạn 1954–1975 đặc biệt được trình bày song song: <strong>Việt Nam Dân chủ Cộng hòa (Miền Bắc)</strong> và <strong>Việt Nam Cộng hòa (Miền Nam)</strong> là hai nhà nước có chủ quyền riêng biệt, đều được cộng đồng quốc tế công nhận. Thuật ngữ "giải phóng" hay "xâm lược" phản ánh quan điểm của từng phía — bản thân cuộc xung đột vẫn còn được diễn giải khác nhau tùy góc nhìn chính trị và lịch sử. Các nguồn được dẫn đến tài liệu học thuật từ nhiều trường phái.</p>
+</div>
+
+<div class="timeline-wrap">
+
+<!-- ═══════════════════════════════════════════════════ ERA 1 -->
+<section class="era-section" id="era1">
+  <div class="era-header">
+    <div class="era-icon-wrap">
+      <!-- Trống đồng Đông Sơn -->
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="18" cy="10" rx="13" ry="5" stroke="#d4a017" stroke-width="1.5"/>
+        <ellipse cx="18" cy="10" rx="8" ry="3" stroke="#d4a017" stroke-width="1"/>
+        <ellipse cx="18" cy="10" rx="3.5" ry="1.5" fill="#d4a017" opacity=".5"/>
+        <path d="M5 10 L3 26 Q18 30 33 26 L31 10" stroke="#d4a017" stroke-width="1.5" fill="rgba(212,160,23,0.08)"/>
+        <line x1="5" y1="14" x2="31" y2="14" stroke="#d4a017" stroke-width="0.7" opacity=".5"/>
+        <line x1="4" y1="20" x2="32" y2="20" stroke="#d4a017" stroke-width="0.7" opacity=".5"/>
+      </svg>
+    </div>
+    <div class="era-title-block">
+      <div class="era-period">~2879 TCN – 111 TCN</div>
+      <h2>Thời Kỳ Thượng Cổ & Hùng Vương</h2>
+      <div class="era-desc">Văn Lang – Âu Lạc – nền văn minh trống đồng Đông Sơn</div>
+      <div class="era-research">
+        <a class="research-link" href="https://en.wikipedia.org/wiki/H%C3%B9ng_kings" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Hùng Vương</a>
+        <a class="research-link" href="https://www.britannica.com/topic/history-of-Vietnam" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Britannica · Vietnam</a>
+        <a class="research-link" href="https://baotanglichsu.vn/vi/Articles/3098/55143/truong-dong-son.html" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>BTLS · Văn hóa Đông Sơn</a>
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">~2879 TCN</div><span class="tl-badge badge-found">Lập quốc</span><h3>Kinh Dương Vương dựng nước Xích Quỷ</h3><p>Theo truyền thuyết, Kinh Dương Vương là vị vua đầu tiên của người Việt, con của Đế Minh – cháu ba đời của Viêm Đế Thần Nông. Ông kết hôn với Long Nữ, con gái Động Đình Quân, sinh ra Lạc Long Quân.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">~2793 TCN</div><span class="tl-badge badge-found">Huyền thoại</span><h3>Lạc Long Quân và Âu Cơ – Bọc trăm trứng</h3><p>Lạc Long Quân (Rồng) lấy Âu Cơ (Tiên), sinh ra bọc trứng nở 100 con. 50 con theo cha xuống biển, 50 con theo mẹ lên núi – hình thành các dân tộc Bách Việt. Con trưởng là Hùng Vương đầu tiên.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">~2879 – 258 TCN</div><span class="tl-badge badge-king">Triều đại</span><h3>18 đời Hùng Vương – Nhà nước Văn Lang</h3><p>18 đời vua Hùng trị vì nhà nước Văn Lang, gồm 15 bộ, đóng đô ở Phong Châu (nay là Phú Thọ). Đây là thời kỳ văn hóa trống đồng Đông Sơn rực rỡ, người Lạc Việt trồng lúa nước và đúc đồng đạt trình độ cao.</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">~700 – 200 TCN</div><span class="tl-badge badge-culture">Văn hóa</span><h3>Văn hóa Đông Sơn đỉnh cao</h3><p>Trống đồng Đông Sơn – biểu tượng văn minh Việt cổ – được đúc với kỹ thuật tinh xảo. Hoa văn trên trống ghi lại sinh hoạt nông nghiệp, lễ hội và chiến tranh của cư dân Lạc Việt.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">257 TCN</div><span class="tl-badge badge-king">Triều đại</span><h3>Thục Phán lập nước Âu Lạc, xây thành Cổ Loa</h3><p>Thục Phán (An Dương Vương) thống nhất Âu Việt và Lạc Việt, lập nước Âu Lạc. Ông xây thành Cổ Loa hình trôn ốc đồ sộ ở Đông Anh, Hà Nội ngày nay. Truyền thuyết nỏ thần Kim Quy gắn với thời kỳ này.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">207 TCN</div><span class="tl-badge badge-war">Mất nước</span><h3>Triệu Đà thôn tính Âu Lạc</h3><p>Triệu Đà dùng kế mỹ nhân (Trọng Thủy – Mị Châu), đánh chiếm Âu Lạc. An Dương Vương chạy ra biển. Truyền thuyết Mị Châu – Trọng Thủy là một trong những câu chuyện bi tráng nhất lịch sử Việt.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">111 TCN</div><span class="tl-badge badge-war">Mất nước</span><h3>Nhà Hán xâm lược – Bắt đầu 1.000 năm Bắc thuộc</h3><p>Vua Hán Vũ Đế sai quân tiêu diệt Nam Việt. Lãnh thổ Việt bị chia thành các quận Giao Chỉ, Cửu Chân, Nhật Nam – khởi đầu hơn 10 thế kỷ đô hộ phương Bắc.</p></div></div>
+  </div>
+  <div class="era-footnote">
+    <div class="era-footnote-title">Nguồn tham khảo — Thời kỳ I</div>
+    <ul class="footnote-list">
+      <li><span class="footnote-num">1</span><span>Nguyễn Khắc Viện, <em>Vietnam: A Long History</em>, Nhà xuất bản Thế Giới, 1999 — tổng hợp lịch sử từ thượng cổ đến hiện đại theo quan điểm học thuật Việt Nam. <a href="https://en.wikipedia.org/wiki/V%C4%83n_Lang" target="_blank">Wikipedia · Văn Lang</a></span></li>
+      <li><span class="footnote-num">2</span><span>Keith W. Taylor, <em>The Birth of Vietnam</em>, University of California Press, 1983 — nghiên cứu chuyên sâu về thời kỳ tiền sử và Bắc thuộc. <a href="https://www.britannica.com/place/Vietnam/Early-history" target="_blank">Britannica · Early History</a></span></li>
+      <li><span class="footnote-num">3</span><span>Heger, Franz, <em>Alte Metalltrommeln aus Südostasien</em>, 1902 — phân loại trống đồng Đông Sơn kinh điển vẫn được dùng đến nay. <a href="https://en.wikipedia.org/wiki/Dong_Son_culture" target="_blank">Wikipedia · Đông Sơn</a></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ERA 2 -->
+<section class="era-section" id="era2">
+  <div class="era-header">
+    <div class="era-icon-wrap">
+      <!-- Voi chiến Hai Bà Trưng -->
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="20" cy="20" rx="11" ry="8" stroke="#d4a017" stroke-width="1.5" fill="rgba(212,160,23,0.07)"/>
+        <path d="M9 20 Q6 22 5 26 Q6 28 8 27 Q9 24 10 22" stroke="#d4a017" stroke-width="1.3" fill="none"/>
+        <path d="M20 12 Q22 8 26 9 Q28 10 27 13 Q25 12 23 13 Q22 11 20 12Z" stroke="#d4a017" stroke-width="1" fill="rgba(212,160,23,0.15)"/>
+        <circle cx="25" cy="15" r="1.2" fill="#d4a017"/>
+        <path d="M13 24 L13 30 M17 25 L17 30 M22 25 L22 30 M27 24 L27 30" stroke="#d4a017" stroke-width="1.3" stroke-linecap="round"/>
+        <path d="M15 13 Q18 8 22 10" stroke="#d4a017" stroke-width="1" stroke-dasharray="2 1.5" opacity=".6"/>
+      </svg>
+    </div>
+    <div class="era-title-block">
+      <div class="era-period">111 TCN – 938 SCN</div>
+      <h2>Thời Kỳ Bắc Thuộc & Các Cuộc Khởi Nghĩa</h2>
+      <div class="era-desc">Hơn 1.000 năm đô hộ và bất khuất kháng cự</div>
+      <div class="era-research">
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Trung_Sisters" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Hai Bà Trưng</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Lady_Trieu" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Bà Triệu</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Ngo_Quyen" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Ngô Quyền</a>
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">40 SCN</div><span class="tl-badge badge-war">Khởi nghĩa</span><h3>Hai Bà Trưng khởi nghĩa – đánh đuổi Tô Định</h3><p>Trưng Trắc và Trưng Nhị phất cờ khởi nghĩa tại Hát Môn (Hà Nội), đánh đuổi thái thú Tô Định. Trong 3 năm (40–43), Trưng Nữ Vương lập lại nền tự chủ, kiểm soát 65 thành trì từ Nam Hải đến Cửu Chân.</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">43 SCN</div><span class="tl-badge badge-war">Thất bại</span><h3>Mã Viện dẹp khởi nghĩa Hai Bà Trưng</h3><p>Đại tướng Mã Viện nhà Hán đưa quân tái chiếm. Hai Bà Trưng tuẫn tiết tại sông Hát. Nhà Hán siết chặt đô hộ, áp đặt phong tục, thu thuế nặng nề hơn.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">248 SCN</div><span class="tl-badge badge-war">Khởi nghĩa</span><h3>Khởi nghĩa Bà Triệu</h3><p>Triệu Thị Trinh (tuổi 19) cưỡi voi đánh quân Ngô với câu nói bất hủ: "Tôi muốn cưỡi cơn gió mạnh, đạp luồng sóng dữ, chém cá kình ở biển Đông...". Khởi nghĩa bị đàn áp, bà tuẫn tiết trên núi Tùng (Thanh Hóa).</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">544 SCN</div><span class="tl-badge badge-found">Tự chủ</span><h3>Lý Bí dựng nước Vạn Xuân</h3><p>Lý Bí (Lý Nam Đế) lãnh đạo khởi nghĩa thành công, lập nước Vạn Xuân năm 544 – đặt tên thể hiện khát vọng dân tộc tồn tại vạn mùa xuân. Đây là nhà nước độc lập đầu tiên sau Bắc thuộc, dù chỉ kéo dài 10 năm.</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">722 SCN</div><span class="tl-badge badge-war">Khởi nghĩa</span><h3>Mai Thúc Loan – Mai Hắc Đế</h3><p>Mai Thúc Loan nổi dậy ở Hoan Châu (Nghệ An), xưng đế (Mai Hắc Đế), liên kết với Champa và Chân Lạp. Ông giải phóng đất nước trong vài năm trước khi bị nhà Đường đàn áp.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">905 SCN</div><span class="tl-badge badge-found">Tự chủ</span><h3>Khúc Thừa Dụ giành quyền tự chủ</h3><p>Khúc Thừa Dụ nhân nhà Đường suy yếu, giành chức Tiết độ sứ, thực tế làm chủ đất nước. Họ Khúc bãi bỏ thuế lao dịch, chia lại ruộng đất, mở đầu thời kỳ tự chủ.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">938 SCN</div><span class="tl-badge badge-war">Đại thắng</span><h3>Ngô Quyền đại thắng trên sông Bạch Đằng</h3><p>Ngô Quyền dùng kế đóng cọc gỗ bịt sắt trên sông Bạch Đằng, nhử thuyền Nam Hán vào bẫy lúc nước triều rút. Quân Nam Hán tan tác, Hoàng tử Lưu Hoằng Thao tử trận. Chiến thắng này chấm dứt hơn 1.000 năm Bắc thuộc.</p></div></div>
+  </div>
+  <div class="era-footnote">
+    <div class="era-footnote-title">Nguồn tham khảo — Thời kỳ II</div>
+    <ul class="footnote-list">
+      <li><span class="footnote-num">1</span><span>Taylor, Keith W., <em>The Birth of Vietnam</em>, UC Press, 1983 — phân tích các cuộc khởi nghĩa chống Bắc thuộc chi tiết nhất trong học thuật phương Tây. <a href="https://en.wikipedia.org/wiki/Early_Vietnamese_history" target="_blank">Wikipedia · Early Vietnamese History</a></span></li>
+      <li><span class="footnote-num">2</span><span>Đinh Gia Trinh, <em>Lịch sử Việt Nam</em>, Hà Nội: KHXH, 1971 — nguồn tổng hợp học thuật Việt Nam về giai đoạn Bắc thuộc. <a href="https://en.wikipedia.org/wiki/Battle_of_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng_River_(938)" target="_blank">Wikipedia · Trận Bạch Đằng 938</a></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ERA 3 -->
+<section class="era-section" id="era3">
+  <div class="era-header">
+    <div class="era-icon-wrap">
+      <!-- Thành lũy / Thành Cổ Loa -->
+      <svg viewBox="0 0 36 36" fill="none">
+        <rect x="6" y="20" width="24" height="10" rx="1.5" stroke="#d4a017" stroke-width="1.5" fill="rgba(212,160,23,0.07)"/>
+        <path d="M6 20 L9 14 L27 14 L30 20" stroke="#d4a017" stroke-width="1.5" fill="rgba(212,160,23,0.05)"/>
+        <rect x="9" y="14" width="3" height="5" fill="var(--ink)" stroke="#d4a017" stroke-width="0.8"/>
+        <rect x="16" y="14" width="4" height="6" rx="1" fill="rgba(212,160,23,0.2)" stroke="#d4a017" stroke-width="0.8"/>
+        <rect x="24" y="14" width="3" height="5" fill="var(--ink)" stroke="#d4a017" stroke-width="0.8"/>
+        <rect x="14" y="24" width="8" height="6" rx="1" fill="rgba(212,160,23,0.15)" stroke="#d4a017" stroke-width="0.8"/>
+        <path d="M3 30 L33 30" stroke="#d4a017" stroke-width="1" opacity=".4"/>
+      </svg>
+    </div>
+    <div class="era-title-block">
+      <div class="era-period">939 – 1225</div>
+      <h2>Độc Lập Sơ Kỳ – Đinh, Tiền Lê, Lý</h2>
+      <div class="era-desc">Xây dựng nhà nước phong kiến trung ương tập quyền</div>
+      <div class="era-research">
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Dinh_dynasty" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Nhà Đinh</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Ly_dynasty" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Nhà Lý</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/L%C3%BD_Th%C6%B0%E1%BB%9Dng_Ki%E1%BB%87t" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Lý Thường Kiệt</a>
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">968</div><span class="tl-badge badge-found">Lập quốc</span><h3>Đinh Bộ Lĩnh thống nhất – Đại Cồ Việt</h3><p>Đinh Bộ Lĩnh dẹp loạn 12 sứ quân, lập nhà nước Đại Cồ Việt, đóng đô ở Hoa Lư (Ninh Bình), đặt niên hiệu Thái Bình – lần đầu tiên Việt Nam dùng niên hiệu riêng.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">981</div><span class="tl-badge badge-war">Kháng chiến</span><h3>Lê Hoàn đánh tan quân Tống lần thứ nhất</h3><p>Lê Hoàn (Tiền Lê Đại Hành) lãnh đạo kháng chiến chống Tống xâm lược. Ông dùng chiến thuật thủy bộ kết hợp, đánh tan quân Tống trên sông Bạch Đằng và ải Chi Lăng, bảo vệ nền độc lập vừa tái lập.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1010</div><span class="tl-badge badge-found">Dời đô</span><h3>Lý Thái Tổ dời đô về Thăng Long</h3><p>Lý Công Uẩn viết Chiếu dời đô, chuyển kinh đô từ Hoa Lư ra Đại La. Khi thuyền cập bến, thấy rồng vàng bay lên, ông đặt tên là Thăng Long. Thăng Long trở thành trung tâm chính trị-văn hóa trong nhiều thế kỷ.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1054</div><span class="tl-badge badge-found">Quốc hiệu</span><h3>Lý Thánh Tông đặt quốc hiệu Đại Việt</h3><p>Vua Lý Thánh Tông đổi tên nước từ Đại Cồ Việt thành Đại Việt – tên gọi sẽ tồn tại hơn 800 năm. Phật giáo cực thịnh, văn hóa Đại Việt định hình bản sắc riêng.</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1070</div><span class="tl-badge badge-culture">Giáo dục</span><h3>Lập Văn Miếu – Quốc Tử Giám</h3><p>Năm 1070, Lý Thánh Tông lập Văn Miếu. Năm 1076, Lý Nhân Tông thành lập Quốc Tử Giám – trường đại học đầu tiên của Việt Nam, đào tạo nhân tài cho đất nước.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1076 – 1077</div><span class="tl-badge badge-war">Đại thắng</span><h3>Lý Thường Kiệt đánh Tống – Bài thơ "Nam quốc sơn hà"</h3><p>Lý Thường Kiệt chủ động tấn công các châu Khâm, Liêm, Ung của Tống (1075), rồi rút về phòng thủ tại sông Như Nguyệt. Tại đây ông đọc bài thơ "Nam quốc sơn hà" – bản Tuyên ngôn độc lập đầu tiên. Quân Tống bị đánh bại và phải rút về.</p></div></div>
+  </div>
+  <div class="era-footnote">
+    <div class="era-footnote-title">Nguồn tham khảo — Thời kỳ III</div>
+    <ul class="footnote-list">
+      <li><span class="footnote-num">1</span><span>Trần Trọng Kim, <em>Việt Nam Sử Lược</em>, 1920 — bộ thông sử Việt Nam cổ điển nhất bằng chữ quốc ngữ, tái bản nhiều lần. <a href="https://vi.wikisource.org/wiki/Vi%E1%BB%87t_Nam_S%E1%BB%AD_L%C6%B0%E1%BB%A3c" target="_blank">Wikisource · Việt Nam Sử Lược</a></span></li>
+      <li><span class="footnote-num">2</span><span>Ngô Sĩ Liên, <em>Đại Việt Sử Ký Toàn Thư</em>, thế kỷ XV — bộ chính sử của nhà nước phong kiến Việt Nam, nguồn gốc của nhiều sự kiện thời Lý–Trần. <a href="https://en.wikipedia.org/wiki/%C4%90%E1%BA%A1i_Vi%E1%BB%87t_s%E1%BB%AD_k%C3%BD_to%C3%A0n_th%C6%B0" target="_blank">Wikipedia · Đại Việt Sử Ký Toàn Thư</a></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ERA 4 -->
+<section class="era-section" id="era4">
+  <div class="era-header">
+    <div class="era-icon-wrap">
+      <!-- Cọc Bạch Đằng -->
+      <svg viewBox="0 0 36 36" fill="none">
+        <path d="M4 26 Q18 20 32 26" stroke="#d4a017" stroke-width="1.3" fill="none" opacity=".5"/>
+        <path d="M4 30 Q18 24 32 30" stroke="#d4a017" stroke-width="0.8" fill="none" opacity=".3"/>
+        <line x1="10" y1="10" x2="10" y2="28" stroke="#d4a017" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="7"  x2="16" y2="26" stroke="#d4a017" stroke-width="2" stroke-linecap="round"/>
+        <line x1="22" y1="9"  x2="22" y2="27" stroke="#d4a017" stroke-width="2" stroke-linecap="round"/>
+        <line x1="28" y1="11" x2="28" y2="28" stroke="#d4a017" stroke-width="2" stroke-linecap="round"/>
+        <polygon points="10,10 8,14 12,14" fill="#d4a017" opacity=".8"/>
+        <polygon points="16,7  14,11 18,11" fill="#d4a017" opacity=".8"/>
+        <polygon points="22,9  20,13 24,13" fill="#d4a017" opacity=".8"/>
+        <polygon points="28,11 26,15 30,15" fill="#d4a017" opacity=".8"/>
+      </svg>
+    </div>
+    <div class="era-title-block">
+      <div class="era-period">1225 – 1400</div>
+      <h2>Nhà Trần & Ba Lần Kháng Chiến Chống Nguyên-Mông</h2>
+      <div class="era-desc">Võ công hiển hách nhất lịch sử — ba lần đánh bại đế chế mạnh nhất thế giới</div>
+      <div class="era-research">
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Mongol_invasions_of_Vietnam" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Kháng Nguyên-Mông</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Tr%E1%BA%A7n_H%C6%B0ng_%C4%90%E1%BA%A1o" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Trần Hưng Đạo</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Battle_of_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng_River_(1288)" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Bạch Đằng 1288</a>
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1258</div><span class="tl-badge badge-war">Kháng chiến I</span><h3>Đánh tan quân Nguyên Mông lần 1</h3><p>Ngột Lương Hợp Thai dẫn quân xâm lược. Trần Thái Tông thực hiện "vườn không nhà trống", rút khỏi Thăng Long, phản công tại Đông Bộ Đầu. Quân Nguyên thất bại và rút lui sau chưa đầy 1 tháng.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1285</div><span class="tl-badge badge-war">Kháng chiến II</span><h3>Hội nghị Diên Hồng – Đánh tan quân Nguyên lần 2</h3><p>50 vạn quân Nguyên do Thoát Hoan chỉ huy. Hội nghị Diên Hồng lịch sử: vua Trần hỏi dân đánh hay hàng, dân đồng thanh hô "Đánh!". Hưng Đạo Vương soạn "Hịch tướng sĩ". Tướng Trần Bình Trọng khảng khái: "Ta thà làm quỷ nước Nam còn hơn làm vương đất Bắc." Quân Nguyên đại bại tại Chương Dương, Hàm Tử, Tây Kết.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1288</div><span class="tl-badge badge-war">Kháng chiến III</span><h3>Trận Bạch Đằng – Hưng Đạo Vương đại phá quân Nguyên</h3><p>Lần thứ 3 Nguyên Mông xâm lược với 30 vạn quân. Trần Hưng Đạo dùng chiến thuật cọc bịt sắt trên sông Bạch Đằng. Hàng trăm chiến thuyền quân Nguyên bị mắc cọc khi thủy triều rút, bị thiêu hủy. Tướng Ô Mã Nhi bị bắt sống.</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1307</div><span class="tl-badge badge-found">Mở mang</span><h3>Công chúa Huyền Trân – Châu Ô và Châu Lý về Đại Việt</h3><p>Vua Trần Anh Tông gả Huyền Trân Công Chúa cho vua Champa Chế Mân, đổi lấy hai châu Ô, Lý (nay là Quảng Trị, Thừa Thiên-Huế). Đây là bước Nam tiến đầu tiên quan trọng.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1400</div><span class="tl-badge badge-king">Triều đại mới</span><h3>Hồ Quý Ly cướp ngôi – cải cách táo bạo</h3><p>Hồ Quý Ly lập nhà Hồ, đổi tên nước là Đại Ngu. Ông thực hiện nhiều cải cách: phát hành tiền giấy, hạn chế quyền đất đai quý tộc, thi cử theo lối mới, dời đô vào thành Tây Đô (Thanh Hóa).</p></div></div>
+  </div>
+  <div class="era-footnote">
+    <div class="era-footnote-title">Nguồn tham khảo — Thời kỳ IV</div>
+    <ul class="footnote-list">
+      <li><span class="footnote-num">1</span><span>Hà Văn Tấn &amp; Phạm Thị Tâm, <em>Cuộc kháng chiến chống xâm lược Nguyên Mông thế kỷ XIII</em>, NXB KHXH, 1972 — nghiên cứu chuyên sâu nhất về ba lần kháng Nguyên. <a href="https://en.wikipedia.org/wiki/Mongol_invasions_of_Vietnam" target="_blank">Wikipedia · Mongol Invasions of Vietnam</a></span></li>
+      <li><span class="footnote-num">2</span><span>Trần Hưng Đạo, <em>Hịch Tướng Sĩ</em>, 1285 — văn kiện lịch sử nguyên gốc, còn lưu giữ tại Đại Việt Sử Ký Toàn Thư. <a href="https://vi.wikipedia.org/wiki/H%E1%BB%8Dch_t%C6%B0%E1%BB%9Bng_s%C4%A9" target="_blank">Wikipedia · Hịch Tướng Sĩ</a></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ERA 5 -->
+<section class="era-section" id="era5">
+  <div class="era-header">
+    <div class="era-icon-wrap">
+      <!-- Lá cờ Lam Sơn / thanh kiếm -->
+      <svg viewBox="0 0 36 36" fill="none">
+        <line x1="18" y1="4" x2="18" y2="32" stroke="#d4a017" stroke-width="1.5" stroke-linecap="round"/>
+        <rect x="18" y="6" width="14" height="10" rx="1" fill="rgba(212,160,23,0.2)" stroke="#d4a017" stroke-width="1"/>
+        <path d="M20 9 L30 9" stroke="#d4a017" stroke-width="0.7" opacity=".6"/>
+        <path d="M20 12 L27 12" stroke="#d4a017" stroke-width="0.7" opacity=".6"/>
+        <path d="M12 22 L24 22 L21 30 L12 30 Z" fill="rgba(212,160,23,0.12)" stroke="#d4a017" stroke-width="1"/>
+        <text x="15" y="28" font-size="7" fill="#d4a017" font-weight="700" opacity=".9">ĐV</text>
+      </svg>
+    </div>
+    <div class="era-title-block">
+      <div class="era-period">1407 – 1771</div>
+      <h2>Hậu Lê – Lam Sơn – Trịnh Nguyễn Phân Tranh</h2>
+      <div class="era-desc">Từ đỉnh cao Lê Thánh Tông đến thời kỳ chia cắt Đàng Trong – Đàng Ngoài</div>
+      <div class="era-research">
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Le_Loi" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Lê Lợi</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Proclamation_of_Victory_over_the_Wu" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Bình Ngô đại cáo</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Trinh%E2%80%93Nguyen_War" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Chiến tranh Trịnh–Nguyễn</a>
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1407 – 1427</div><span class="tl-badge badge-war">Kháng chiến</span><h3>Nhà Minh xâm lược – Khởi nghĩa Lam Sơn</h3><p>Quân Minh chiếm Đại Việt năm 1407. Lê Lợi phát lệnh khởi nghĩa ở Lam Sơn năm 1418. Nguyễn Trãi soạn thảo chiến lược, thu phục nhân tâm. Mười năm kháng chiến kết thúc bằng đại thắng Chi Lăng – Xương Giang 1427.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1428</div><span class="tl-badge badge-found">Lập quốc</span><h3>Lê Lợi lên ngôi – Bình Ngô đại cáo</h3><p>Lê Lợi lên ngôi Hoàng đế, lập nhà Lê. Nguyễn Trãi soạn "Bình Ngô đại cáo" – áng văn chính luận vĩ đại, khẳng định chủ quyền dân tộc: "Như nước Đại Việt ta từ trước – Vốn xưng nền văn hiến đã lâu..."</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1460 – 1497</div><span class="tl-badge badge-king">Hoàng kim</span><h3>Lê Thánh Tông – Thời kỳ cực thịnh Đại Việt</h3><p>Lê Thánh Tông trị vì 38 năm, ban hành Bộ luật Hồng Đức toàn diện, mở rộng lãnh thổ về phía nam (tiêu diệt Champa 1471), cải cách hành chính chia 13 đạo thừa tuyên. Đây là đỉnh cao của chế độ phong kiến Việt Nam.</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1527</div><span class="tl-badge badge-king">Triều đại</span><h3>Mạc Đăng Dung cướp ngôi – Nam-Bắc triều</h3><p>Mạc Đăng Dung phế vua Lê, lập nhà Mạc. Cựu thần nhà Lê lập Lê Trang Tông ở Thanh Hóa, bắt đầu thời kỳ Nam-Bắc triều (Lê-Mạc) chia đôi đất nước.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1600 – 1775</div><span class="tl-badge badge-king">Phân tranh</span><h3>Trịnh – Nguyễn phân tranh</h3><p>Chúa Trịnh kiểm soát Đàng Ngoài (phía bắc sông Gianh), chúa Nguyễn kiểm soát Đàng Trong. Hai bên đánh nhau 7 lần bất phân thắng bại, đất nước bị chia cắt hơn 150 năm. Trong thời gian này, chúa Nguyễn tiếp tục Nam tiến xuống đồng bằng sông Cửu Long.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1698</div><span class="tl-badge badge-found">Nam tiến</span><h3>Nguyễn Hữu Cảnh xác lập chủ quyền Nam Bộ</h3><p>Thống suất Nguyễn Hữu Cảnh vào Nam lập phủ Gia Định, xác lập chủ quyền chính thức của người Việt trên vùng đất đồng bằng sông Cửu Long.</p></div></div>
+  </div>
+  <div class="era-footnote">
+    <div class="era-footnote-title">Nguồn tham khảo — Thời kỳ V</div>
+    <ul class="footnote-list">
+      <li><span class="footnote-num">1</span><span>Nguyễn Trãi, <em>Bình Ngô Đại Cáo</em>, 1428 — văn kiện chính trị-pháp lý quan trọng nhất lịch sử Đại Việt. <a href="https://en.wikipedia.org/wiki/Proclamation_of_Victory_over_the_Wu" target="_blank">Wikipedia · Bình Ngô Đại Cáo</a></span></li>
+      <li><span class="footnote-num">2</span><span>Li Tana, <em>Nguyễn Cochinchina: Southern Vietnam in the 17th and 18th centuries</em>, Cornell SEAP, 1998 — nghiên cứu chuyên sâu về chúa Nguyễn và vùng Đàng Trong. <a href="https://en.wikipedia.org/wiki/Nguyen_lords" target="_blank">Wikipedia · Chúa Nguyễn</a></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ERA 6 -->
+<section class="era-section" id="era6">
+  <div class="era-header">
+    <div class="era-icon-wrap">
+      <!-- Trận Đống Đa / Voi Quang Trung -->
+      <svg viewBox="0 0 36 36" fill="none">
+        <path d="M6 28 Q10 18 18 14 Q26 10 30 16 Q32 22 28 26 Q24 30 18 30 Q12 32 6 28Z" stroke="#d4a017" stroke-width="1.3" fill="rgba(212,160,23,0.08)"/>
+        <circle cx="28" cy="16" r="2" fill="#d4a017" opacity=".7"/>
+        <path d="M28 14 Q32 10 30 6 Q28 8 27 11" stroke="#d4a017" stroke-width="1" fill="none" opacity=".6"/>
+        <path d="M10 24 L10 30 M15 26 L15 30 M21 27 L21 30 M26 26 L26 30" stroke="#d4a017" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M18 14 L16 8 M18 14 L20 8" stroke="#d4a017" stroke-width="1" opacity=".5"/>
+        <polygon points="16,8 18,5 20,8" fill="#d4a017" opacity=".6"/>
+      </svg>
+    </div>
+    <div class="era-title-block">
+      <div class="era-period">1771 – 1858</div>
+      <h2>Tây Sơn & Nhà Nguyễn Thống Nhất</h2>
+      <div class="era-desc">Quang Trung đại phá quân Thanh — Lần đầu lãnh thổ thống nhất từ Lạng Sơn đến Cà Mau</div>
+      <div class="era-research">
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Tay_Son_dynasty" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Nhà Tây Sơn</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Battle_of_%C4%90%E1%BB%91ng_%C4%90a" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Trận Đống Đa</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Nguyen_dynasty" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Nhà Nguyễn</a>
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1771 – 1802</div><span class="tl-badge badge-war">Khởi nghĩa</span><h3>Phong trào Tây Sơn – Nguyễn Huệ</h3><p>Ba anh em Nguyễn Nhạc, Nguyễn Huệ, Nguyễn Lữ khởi nghĩa ở Tây Sơn (Bình Định). Phong trào lật đổ chúa Nguyễn (1777) và chúa Trịnh (1786), thống nhất đất nước trong tay Tây Sơn.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1789</div><span class="tl-badge badge-war">Đại thắng</span><h3>Quang Trung đại phá quân Thanh – Trận Đống Đa</h3><p>29 vạn quân Thanh theo yêu cầu vua Lê Chiêu Thống tràn vào. Nguyễn Huệ (Quang Trung) hành quân thần tốc 600km trong 5 ngày. Tết Kỷ Dậu 1789, quân Tây Sơn bao vây và tiêu diệt hoàn toàn quân Thanh tại Đống Đa – chiến công lừng danh nhất trong lịch sử chống Bắc xâm.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1802</div><span class="tl-badge badge-found">Thống nhất</span><h3>Nguyễn Ánh thống nhất đất nước – Đại Nam</h3><p>Nguyễn Ánh (Gia Long) đánh bại Tây Sơn, lập triều Nguyễn, đặt quốc hiệu Việt Nam. Kinh đô đặt tại Huế. Lần đầu tiên lãnh thổ từ Lạng Sơn đến Cà Mau nằm trong một nhà nước thống nhất.</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1820 – 1840</div><span class="tl-badge badge-culture">Cải cách</span><h3>Minh Mạng cải cách hành chính toàn diện</h3><p>Vua Minh Mạng thiết lập nền hành chính tập quyền mạnh, chia cả nước thành 30 tỉnh. Đây cũng là thời kỳ xây dựng quân đội hiện đại và mở rộng bang giao khu vực.</p></div></div>
+  </div>
+  <div class="era-footnote">
+    <div class="era-footnote-title">Nguồn tham khảo — Thời kỳ VI</div>
+    <ul class="footnote-list">
+      <li><span class="footnote-num">1</span><span>Phan Huy Lê (chủ biên), <em>Lịch sử Việt Nam</em>, tập II, NXB Giáo dục, 2012 — bộ sử học đường chính thức, được tái bản nhiều lần. <a href="https://en.wikipedia.org/wiki/Tay_Son_dynasty" target="_blank">Wikipedia · Nhà Tây Sơn</a></span></li>
+      <li><span class="footnote-num">2</span><span>Woodside, Alexander, <em>Vietnam and the Chinese Model</em>, Harvard UP, 1971 — phân tích triều Nguyễn trong bối cảnh Đông Á theo quan điểm học thuật phương Tây. <a href="https://en.wikipedia.org/wiki/Nguyen_dynasty" target="_blank">Wikipedia · Nhà Nguyễn</a></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ERA 7 -->
+<section class="era-section" id="era7">
+  <div class="era-header">
+    <div class="era-icon-wrap">
+      <!-- Tàu chiến Pháp / cờ Pháp -->
+      <svg viewBox="0 0 36 36" fill="none">
+        <rect x="4" y="8" width="4" height="10" fill="#002395" rx="0.5"/>
+        <rect x="8" y="8" width="4" height="10" fill="#EDEDED" rx="0"/>
+        <rect x="12" y="8" width="4" height="10" fill="#ED2939" rx="0.5"/>
+        <path d="M4 18 L32 18 L30 22 Q18 26 6 22 Z" stroke="#d4a017" stroke-width="1" fill="rgba(212,160,23,0.08)"/>
+        <path d="M4 22 Q18 28 32 22" stroke="#d4a017" stroke-width="0.8" fill="none" opacity=".4"/>
+        <line x1="12" y1="4" x2="12" y2="18" stroke="#d4a017" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M18 30 L24 30 L22 34 L16 34 Z" stroke="#d4a017" stroke-width="0.8" fill="rgba(212,160,23,0.1)"/>
+      </svg>
+    </div>
+    <div class="era-title-block">
+      <div class="era-period">1858 – 1930</div>
+      <h2>Thực Dân Pháp Xâm Lược & Đô Hộ</h2>
+      <div class="era-desc">Hơn 80 năm dưới ách thực dân và các phong trào đòi độc lập</div>
+      <div class="era-research">
+        <a class="research-link" href="https://en.wikipedia.org/wiki/French_Indochina" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Đông Dương Pháp</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Phan_Boi_Chau" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Phan Bội Châu</a>
+        <a class="research-link" href="https://www.colonialpast.net/french-indochina" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>ColonialPast.net</a>
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1858</div><span class="tl-badge badge-war">Xâm lược</span><h3>Pháp nổ súng tấn công Đà Nẵng</h3><p>Liên quân Pháp – Tây Ban Nha tấn công Đà Nẵng ngày 1/9/1858, mở đầu cuộc xâm lược Việt Nam. Gặp sức kháng cự mạnh, quân Pháp chuyển xuống đánh Gia Định (1859) và chiếm toàn Nam Kỳ.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1862 – 1884</div><span class="tl-badge badge-war">Mất nước</span><h3>Pháp chiếm toàn bộ Việt Nam – Hiệp ước Pa-tơ-nốt</h3><p>Các hiệp ước nhượng bộ liên tiếp: Nam Kỳ 1862 (6 tỉnh), toàn Nam Kỳ 1874, rồi Hiệp ước Giáp Thân 1884 đặt toàn bộ Việt Nam dưới quyền bảo hộ của Pháp. Đất nước bị chia thành 3 kỳ: Nam Kỳ (thuộc địa), Trung Kỳ và Bắc Kỳ (bảo hộ).</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1885 – 1895</div><span class="tl-badge badge-war">Kháng chiến</span><h3>Phong trào Cần Vương – Hàm Nghi, Phan Đình Phùng</h3><p>Vua Hàm Nghi xuất bôn, phát chiếu Cần Vương kêu gọi dân chúng giúp vua đuổi Pháp. Các cuộc khởi nghĩa nổ ra khắp nơi, tiêu biểu là Phan Đình Phùng ở Hương Sơn (Hà Tĩnh) kéo dài đến 1895.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1904 – 1908</div><span class="tl-badge badge-modern">Cải cách</span><h3>Phan Bội Châu và phong trào Đông Du</h3><p>Phan Bội Châu thành lập Duy Tân Hội (1904), phong trào Đông Du (1905-1909) đưa hàng trăm thanh niên sang Nhật học. Phan Châu Trinh chủ trương "khai dân trí, chấn dân khí, hậu dân sinh". Hai xu hướng tư tưởng lớn của phong trào dân tộc đầu thế kỷ XX.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1930</div><span class="tl-badge badge-modern">Chính trị</span><h3>Nguyễn Ái Quốc thành lập Đảng Cộng sản Việt Nam</h3><p>Ngày 3/2/1930, Nguyễn Ái Quốc (Hồ Chí Minh) chủ trì hội nghị thành lập Đảng Cộng sản Việt Nam tại Hương Cảng (Hồng Kông). Đây là bước ngoặt quyết định, mở ra con đường cách mạng vô sản cho dân tộc Việt Nam.</p></div></div>
+  </div>
+  <div class="era-footnote">
+    <div class="era-footnote-title">Nguồn tham khảo — Thời kỳ VII</div>
+    <ul class="footnote-list">
+      <li><span class="footnote-num">1</span><span>Marr, David G., <em>Vietnamese Anticolonialism 1885–1925</em>, UC Press, 1971 — nghiên cứu kinh điển về phong trào chống thực dân Pháp. <a href="https://en.wikipedia.org/wiki/French_Indochina" target="_blank">Wikipedia · French Indochina</a></span></li>
+      <li><span class="footnote-num">2</span><span>Duiker, William J., <em>Ho Chi Minh: A Life</em>, Hyperion, 2000 — tiểu sử Hồ Chí Minh đầy đủ nhất bằng tiếng Anh. <a href="https://en.wikipedia.org/wiki/Ho_Chi_Minh" target="_blank">Wikipedia · Hồ Chí Minh</a></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ ERA 8 -->
+<section class="era-section" id="era8">
+  <div class="era-header">
+    <div class="era-icon-wrap">
+      <svg viewBox="0 0 36 36" fill="none">
+        <rect x="3" y="9" width="13" height="9" rx="1" fill="#8B1A1A" stroke="#d4a017" stroke-width="0.8"/>
+        <polygon points="9,11 9.8,13.5 12.5,13.5 10.4,15 11.2,17.5 9,16 6.8,17.5 7.6,15 5.5,13.5 8.2,13.5" fill="#d4a017" opacity=".9"/>
+        <rect x="20" y="9" width="13" height="9" rx="1" fill="#1a3a6b" stroke="#d4a017" stroke-width="0.8"/>
+        <rect x="20" y="9" width="4" height="9" fill="#EDEDED" opacity=".4"/>
+        <rect x="29" y="9" width="4" height="9" fill="#c0392b" opacity=".6"/>
+        <line x1="3" y1="9" x2="3" y2="28" stroke="#d4a017" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="20" y1="9" x2="20" y2="28" stroke="#d4a017" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="22" x2="33" y2="22" stroke="#d4a017" stroke-width="0.7" stroke-dasharray="2 2" opacity=".5"/>
+        <text x="11" y="27" font-size="4.5" fill="#d4a017" opacity=".7" text-anchor="middle">17°B</text>
+      </svg>
+    </div>
+    <div class="era-title-block">
+      <div class="era-period">1945 – 1954</div>
+      <h2>Chiến Tranh Đông Dương & Hiệp Định Genève</h2>
+      <div class="era-desc">Cuộc chiến chống thực dân Pháp và sự phân chia đất nước tại vĩ tuyến 17 — bối cảnh chung cho cả hai nhà nước Việt Nam ra đời sau 1954</div>
+      <div class="era-research">
+        <a class="research-link" href="https://en.wikipedia.org/wiki/First_Indochina_War" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Chiến tranh Đông Dương</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Battle_of_Dien_Bien_Phu" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Điện Biên Phủ</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Geneva_Accords" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Hiệp định Genève</a>
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1945</div><span class="tl-badge badge-found">Lập quốc</span><h3>Hai chính phủ ra đời — VNDCCH và sự sụp đổ của Đế quốc Bảo Đại</h3><p>Ngày 2/9/1945, Hồ Chí Minh tuyên bố thành lập Việt Nam Dân chủ Cộng hòa tại Hà Nội. Trước đó một ngày (1/9), vua Bảo Đại thoái vị và trao ấn kiếm truyền ngôi. Anh, Pháp, và Quốc dân Đảng Trung Hoa đều không công nhận chính phủ Việt Minh — bắt đầu một cuộc đấu tranh chính trị và quân sự phức tạp nhiều tầng lớp.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1946 – 1954</div><span class="tl-badge badge-war">Chiến tranh</span><h3>Chiến tranh Đông Dương lần thứ nhất</h3><p>Pháp tái chiếm Đông Dương, từ chối công nhận VNDCCH. Năm 1949, Pháp dựng Quốc gia Việt Nam do Bảo Đại đứng đầu làm giải pháp chính trị đối lập. Cuộc chiến diễn ra trên toàn cõi Việt Nam, Lào, Campuchia. Cả Mỹ (hậu thuẫn Pháp) lẫn Trung Quốc và Liên Xô (hậu thuẫn Việt Minh) đều can dự từ sớm — đây là chiến trường proxy của Chiến tranh Lạnh ngay từ đầu.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">7/5/1954</div><span class="tl-badge badge-war">Bước ngoặt</span><h3>Trận Điện Biên Phủ — Pháp thất bại hoàn toàn</h3><p>Sau 56 ngày đêm (13/3–7/5/1954), toàn bộ quân đồn trú Pháp tại Điện Biên Phủ đầu hàng. Tướng De Castries bị bắt. Thất bại này chấm dứt ý chí chính trị của Pháp tại Đông Dương và buộc các cường quốc đến bàn đàm phán ở Genève.</p></div></div>
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">7/1954</div><span class="tl-badge badge-found">Hiệp định</span><h3>Hiệp định Genève — Vĩ tuyến 17 chia đôi tạm thời</h3><p>Hiệp định Genève (21/7/1954) quy định ngừng bắn, chia đôi Việt Nam <em>tạm thời</em> tại vĩ tuyến 17, với tổng tuyển cử thống nhất dự kiến vào tháng 7/1956. Phía Bắc do VNDCCH kiểm soát; phía Nam thuộc Quốc gia Việt Nam (sau trở thành VNCH). Cuộc tổng tuyển cử không bao giờ diễn ra — cả hai phía đều có lý do riêng từ chối tổ chức.</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-year">1954 – 1955</div><span class="tl-badge badge-culture">Di dân</span><h3>Cuộc di cư vĩ đại — gần một triệu người vào Nam</h3><p>Khoảng 800.000–1.000.000 người, phần lớn là người Công giáo và những người lo ngại chế độ cộng sản, di cư từ Bắc vào Nam dưới sự hỗ trợ của Mỹ (Chiến dịch Passage to Freedom). Đồng thời, khoảng 130.000–140.000 cán bộ Việt Minh tập kết ra Bắc, để lại nhiều cơ sở nằm vùng ở miền Nam. Cuộc di dân này định hình sâu sắc xã hội và chính trị của cả hai miền.</p></div></div>
+  </div>
+  <div class="era-footnote">
+    <div class="era-footnote-title">Nguồn tham khảo — Thời kỳ VIII (Bối cảnh chung)</div>
+    <ul class="footnote-list">
+      <li><span class="footnote-num">1</span><span>Fall, Bernard, <em>Street Without Joy</em>, Stackpole Books, 1961 — phóng sự chiến trường kinh điển về cuộc chiến Đông Dương, được cả hai phía trích dẫn. <a href="https://en.wikipedia.org/wiki/Street_Without_Joy" target="_blank">Wikipedia · Street Without Joy</a></span></li>
+      <li><span class="footnote-num">2</span><span>Logevall, Fredrik, <em>Embers of War</em>, Random House, 2012 — đoạt giải Pulitzer, nghiên cứu toàn diện nhất về nguồn gốc cuộc chiến Đông Dương từ góc nhìn quốc tế. <a href="https://en.wikipedia.org/wiki/Embers_of_War" target="_blank">Wikipedia · Embers of War</a></span></li>
+      <li><span class="footnote-num">3</span><span>Hiệp định Genève, văn bản nguyên gốc, 1954. <a href="https://en.wikipedia.org/wiki/Geneva_Accords" target="_blank">Wikipedia · Geneva Accords</a></span></li>
+    </ul>
+  </div>
+</section>
+
+</div><!-- end timeline-wrap -->
+
+<!-- ═══════════════════════════════════════════════════ ERA 8b: DUAL COLUMN -->
+<div class="dual-header">
+  <section class="era-section" id="era8b">
+    <div class="era-header">
+      <div class="era-icon-wrap">
+        <svg viewBox="0 0 36 36" fill="none">
+          <line x1="18" y1="4" x2="18" y2="32" stroke="#d4a017" stroke-width="1.5" stroke-dasharray="3 2"/>
+          <rect x="2" y="8" width="14" height="9" rx="1" fill="#8B1A1A" stroke="#d4a017" stroke-width="0.8"/>
+          <polygon points="9,10 9.7,12.2 12,12.2 10.2,13.5 10.9,15.7 9,14.4 7.1,15.7 7.8,13.5 6,12.2 8.3,12.2" fill="#d4a017"/>
+          <rect x="20" y="8" width="14" height="9" rx="1" fill="#1a3a6b" stroke="#d4a017" stroke-width="0.8"/>
+          <rect x="20" y="8" width="4.7" height="9" fill="#FFD700" opacity=".25"/>
+          <rect x="29.3" y="8" width="4.7" height="9" fill="#c0392b" opacity=".5"/>
+          <text x="9" y="26" font-size="4" fill="#8B1A1A" text-anchor="middle" font-weight="700">VNDCCH</text>
+          <text x="27" y="26" font-size="4" fill="#1a3a6b" text-anchor="middle" font-weight="700">VNCH</text>
+          <text x="9" y="30" font-size="3.5" fill="var(--gold)" text-anchor="middle">Miền Bắc</text>
+          <text x="27" y="30" font-size="3.5" fill="var(--gold)" text-anchor="middle">Miền Nam</text>
+        </svg>
+      </div>
+      <div class="era-title-block">
+        <div class="era-period">1954 – 1975</div>
+        <h2>Hai Nhà Nước Song Song — VNDCCH & VNCH</h2>
+        <div class="era-desc">Giai đoạn này tồn tại <strong style="color:var(--gold)">hai nhà nước hợp pháp</strong> với chính phủ, quân đội, hiến pháp và quan hệ quốc tế riêng biệt. Cột trái trình bày góc nhìn Việt Nam Dân chủ Cộng hòa (Hà Nội). Cột phải trình bày góc nhìn Việt Nam Cộng hòa (Sài Gòn). Ngôn ngữ được chọn lọc để phản ánh quan điểm từng phía — không phải lập trường của tài liệu này.</div>
+        <div class="era-research">
+          <a class="research-link" href="https://en.wikipedia.org/wiki/North_Vietnam" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · VNDCCH</a>
+          <a class="research-link" href="https://en.wikipedia.org/wiki/South_Vietnam" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · VNCH</a>
+          <a class="research-link" href="https://en.wikipedia.org/wiki/Vietnam_War" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Vietnam War</a>
+          <a class="research-link" href="https://www.archives.gov/research/foreign-policy/vietnam-war" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>US National Archives</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="dual-cols">
+  <!-- ─── CỘT TRÁI: VNDCCH / Hà Nội ─── -->
+  <div class="col-north">
+    <div class="col-label col-label-north">
+      <svg viewBox="0 0 28 20" fill="none"><rect width="28" height="20" rx="2" fill="#c0392b"/><polygon points="14,3 15.8,8.5 21.5,8.5 16.9,11.8 18.7,17.3 14,14 9.3,17.3 11.1,11.8 6.5,8.5 12.2,8.5" fill="#FFD700"/></svg>
+      <div>
+        <div class="col-label-text">Việt Nam Dân chủ Cộng hòa</div>
+        <div class="col-label-sub">Hà Nội · 1945–1976</div>
+      </div>
+    </div>
+    <div class="col-timeline">
+      <div class="timeline">
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-north">VNDCCH</span>
+          <div class="tl-year">1955 – 1960</div>
+          <h3>Xây dựng chủ nghĩa xã hội ở miền Bắc</h3>
+          <p>Cải cách ruộng đất (1953–1956) chia lại đất cho nông dân nhưng đi kèm với các cuộc đấu tố dẫn đến nhiều oan sai — chính phủ sau đó thừa nhận sai lầm (1956). Chủ tịch Hồ Chí Minh công khai xin lỗi người dân. Miền Bắc tiến hành hợp tác hóa và công nghiệp hóa với sự hỗ trợ của Liên Xô và Trung Quốc.</p>
+        </div></div>
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-north">VNDCCH</span>
+          <div class="tl-year">1959 – 1960</div>
+          <h3>Nghị quyết 15 — Con đường vũ trang thống nhất</h3>
+          <p>Trung ương Đảng thông qua Nghị quyết 15 (1959), chủ trương đấu tranh vũ trang ở miền Nam song song với đấu tranh chính trị. Đường Hồ Chí Minh (đường mòn) bắt đầu được mở để chi viện vào Nam. Mặt trận Giải phóng miền Nam ra đời 12/1960 với sự chỉ đạo của Hà Nội.</p>
+        </div></div>
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-north">VNDCCH</span>
+          <div class="tl-year">1964 – 1965</div>
+          <h3>Sự kiện Vịnh Bắc Bộ — Mỹ leo thang trực tiếp</h3>
+          <p>Sự kiện Vịnh Bắc Bộ (8/1964) — đến nay vẫn còn tranh cãi về tính xác thực — tạo cớ để Mỹ thông qua Nghị quyết Tonkin và không kích miền Bắc. Năm 1965, lính thủy đánh bộ Mỹ đổ bộ Đà Nẵng. VNDCCH gọi đây là "chiến tranh chống Mỹ cứu nước", huy động toàn bộ xã hội miền Bắc vào cuộc chiến.</p>
+        </div></div>
+
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-north">VNDCCH</span>
+          <div class="tl-year">1965 – 1972</div>
+          <h3>Miền Bắc dưới bom Mỹ — Chiến đấu và sản xuất</h3>
+          <p>Mỹ ném bom miền Bắc liên tục. Hàng triệu người sơ tán, các thành phố công nghiệp bị tàn phá. Tuy nhiên miền Bắc tiếp tục chi viện cho miền Nam. Không quân miền Bắc và lực lượng tên lửa bắn hạ hàng trăm máy bay Mỹ, bắt làm tù binh hàng chục phi công, trong đó có John McCain.</p>
+        </div></div>
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-north">VNDCCH</span>
+          <div class="tl-year">1/1968</div>
+          <h3>Tổng tiến công Mậu Thân</h3>
+          <p>Đêm Tết Mậu Thân, lực lượng Quân Giải phóng và quân chính quy tấn công đồng loạt hơn 100 thành phố, thị trấn trên toàn miền Nam. Về mặt quân sự, đây là thất bại nặng nề (tổn thất lớn, không giữ được địa bàn). Nhưng về mặt chính trị và tâm lý, Mậu Thân làm lung lay hoàn toàn luận điểm "ánh sáng cuối đường hầm" của chính quyền Johnson và kích động phong trào phản chiến tại Mỹ.</p>
+        </div></div>
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-north">VNDCCH</span>
+          <div class="tl-year">27/1/1973</div>
+          <h3>Hiệp định Paris — Mỹ rút quân</h3>
+          <p>Hiệp định Paris ký kết buộc Mỹ rút toàn bộ quân đội. VNDCCH và MTGPMN được quyền giữ các vùng kiểm soát ở miền Nam. Lê Đức Thọ (đàm phán chính của VNDCCH) được trao giải Nobel Hòa bình nhưng từ chối, tuyên bố hòa bình chưa thực sự được lập lại.</p>
+        </div></div>
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-north">VNDCCH</span>
+          <div class="tl-year">30/4/1975</div>
+          <h3>Chiến dịch Hồ Chí Minh — Sụp đổ chính quyền Sài Gòn</h3>
+          <p>Quân đoàn VNDCCH mở chiến dịch tổng tấn công từ tháng 3/1975. Các tỉnh miền Trung sụp đổ nhanh chóng. 11:30 ngày 30/4/1975, xe tăng số 843 và 390 húc đổ cổng Dinh Độc Lập. Tướng Dương Văn Minh — Tổng thống VNCH — tuyên bố đầu hàng vô điều kiện. VNDCCH gọi đây là ngày "giải phóng hoàn toàn miền Nam".</p>
+        </div></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CỘT PHẢI: VNCH / Sài Gòn ─── -->
+  <div class="col-south">
+    <div class="col-label col-label-south">
+      <svg viewBox="0 0 28 20" fill="none">
+        <rect width="28" height="20" rx="2" fill="#FFD700"/>
+        <rect y="6.5" width="28" height="2.3" fill="#c0392b"/>
+        <rect y="11.2" width="28" height="2.3" fill="#c0392b"/>
+      </svg>
+      <div>
+        <div class="col-label-text">Việt Nam Cộng hòa</div>
+        <div class="col-label-sub">Sài Gòn · 1955–1975</div>
+      </div>
+    </div>
+    <div class="col-timeline">
+      <div class="timeline">
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-south">VNCH</span>
+          <div class="tl-year">26/10/1955</div>
+          <h3>Thành lập Việt Nam Cộng hòa — Ngô Đình Diệm</h3>
+          <p>Sau cuộc trưng cầu dân ý (bị quốc tế nghi ngờ có gian lận), Ngô Đình Diệm tuyên bố thành lập nền Đệ nhất Cộng hòa, phế truất Bảo Đại. VNCH được Mỹ, Pháp, Anh, Úc và nhiều quốc gia phương Tây công nhận, trở thành thành viên của Liên Hợp Quốc năm 1977 (sau khi đã sáp nhập). VNCH từ chối tổng tuyển cử 1956, lập luận rằng điều kiện bầu cử tự do không thể đảm bảo ở miền Bắc.</p>
+        </div></div>
+
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-south">VNCH</span>
+          <div class="tl-year">1956 – 1963</div>
+          <h3>Đệ nhất Cộng hòa — Phát triển và đàn áp</h3>
+          <p>Chính quyền Ngô Đình Diệm xây dựng cơ sở hạ tầng, hệ thống giáo dục và quân đội với viện trợ Mỹ. Tuy nhiên, chính sách đàn áp phe đối lập (kể cả các cựu đảng viên Việt Minh không cộng sản) và các vụ trấn áp Phật giáo (1963) gây mất lòng dân nghiêm trọng và sự xa cách của phương Tây.</p>
+        </div></div>
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-south">VNCH</span>
+          <div class="tl-year">11/1963</div>
+          <h3>Đảo chính lật đổ Ngô Đình Diệm</h3>
+          <p>Một nhóm tướng lĩnh (được Mỹ ngầm bật đèn xanh) tiến hành đảo chính. Anh em Diệm–Nhu bị bắt và ám sát. Đây mở ra giai đoạn bất ổn chính trị kéo dài với hàng chục cuộc đảo chính và thay đổi chính phủ liên tiếp, gây suy yếu nghiêm trọng năng lực chiến đấu của VNCH.</p>
+        </div></div>
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-south">VNCH</span>
+          <div class="tl-year">1967 – 1971</div>
+          <h3>Đệ nhị Cộng hòa — Nguyễn Văn Thiệu</h3>
+          <p>Hiến pháp 1967 thành lập Đệ nhị Cộng hòa. Tướng Nguyễn Văn Thiệu đắc cử Tổng thống. Dưới Thiệu, VNCH xây dựng lực lượng quân sự đáng kể (Quân lực VNCH đỉnh cao có trên 1,1 triệu quân), duy trì nền kinh tế và đời sống đô thị tương đối phồn thịnh tại Sài Gòn — đặc biệt so với miền Bắc bị bom phá.</p>
+        </div></div>
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-south">VNCH</span>
+          <div class="tl-year">1/1968</div>
+          <h3>Mậu Thân — VNCH và đồng minh phản công</h3>
+          <p>Lực lượng cộng sản tấn công bất ngờ dịp Tết. Quân lực VNCH và quân Mỹ phản công quyết liệt và giành lại toàn bộ địa bàn trong vài tuần. Thảm sát Huế — nơi lực lượng cộng sản xử tử ít nhất 2.800–6.000 thường dân bị cho là "thành phần phản cách mạng" — là một trong những tội ác chiến tranh có hồ sơ tư liệu rõ ràng nhất của cuộc chiến.</p>
+        </div></div>
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-south">VNCH</span>
+          <div class="tl-year">1973 – 1975</div>
+          <h3>Sau Hiệp định Paris — Bị bỏ rơi và sụp đổ</h3>
+          <p>Hiệp định Paris (1973) rút quân Mỹ nhưng cho phép quân chính quy Bắc Việt đóng ở miền Nam. Quốc hội Mỹ cắt giảm viện trợ nghiêm trọng (1974–75). Không có yểm trợ không lực, thiếu đạn dược và nhiên liệu, Quân lực VNCH sụp đổ nhanh chóng khi VNDCCH mở đại công kích mùa xuân 1975. Tổng thống Thiệu từ chức và rời đất nước. Hơn 130.000 người Việt di tản cùng người Mỹ trong những giờ cuối.</p>
+        </div></div>
+
+        <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+          <span class="perspective-tag pt-south">VNCH</span>
+          <div class="tl-year">30/4/1975</div>
+          <h3>Sự cáo chung của VNCH — Ngày "Quốc hận"</h3>
+          <p>Tướng Dương Văn Minh tuyên bố đầu hàng vô điều kiện. Hàng trăm nghìn sĩ quan, công chức VNCH bị đưa vào các "trại cải tạo" trong nhiều năm. Trong thập kỷ tiếp theo, hơn 800.000 người vượt biên bằng thuyền (boat people), hàng chục nghìn người thiệt mạng trên biển. Cộng đồng người Việt hải ngoại toàn thế giới (ước tính 4–5 triệu người) phần lớn gọi 30/4 là "Ngày Quốc hận".</p>
+        </div></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dual-footnote">
+  <div class="era-footnote">
+    <div class="era-footnote-title">Nguồn tham khảo — Thời kỳ VIII-b: VNDCCH & VNCH (học thuật trung lập)</div>
+    <ul class="footnote-list">
+      <li><span class="footnote-num">1</span><span>Moyar, Mark, <em>Triumph Forsaken: The Vietnam War, 1954–1965</em>, Cambridge UP, 2006 — tái thẩm định các quyết định chiến lược của VNCH và Mỹ từ góc nhìn học thuật phê phán lập luận chủ đạo. <a href="https://en.wikipedia.org/wiki/South_Vietnam" target="_blank">Wikipedia · South Vietnam</a></span></li>
+      <li><span class="footnote-num">2</span><span>Nguyen, Lien-Hang T., <em>Hanoi's War</em>, UNC Press, 2012 — nghiên cứu tiếng Việt và lưu trữ Hà Nội, cho thấy nội bộ VNDCCH phức tạp hơn nhiều so với tường thuật chính thống. <a href="https://en.wikipedia.org/wiki/People%27s_Army_of_Vietnam" target="_blank">Wikipedia · PAVN</a></span></li>
+      <li><span class="footnote-num">3</span><span>Dommen, Arthur J., <em>The Indochinese Experience of the French and the Americans</em>, Indiana UP, 2001 — 1.100 trang tư liệu lưu trữ từ cả hai phía. <a href="https://en.wikipedia.org/wiki/Hue_massacre" target="_blank">Wikipedia · Thảm sát Huế 1968</a></span></li>
+      <li><span class="footnote-num">4</span><span>Kiernan, Ben, <em>Việt Nam: A History from Earliest Times to the Present</em>, Oxford UP, 2017 — tổng hợp toàn diện nhất tính đến nay, trích dẫn nguồn từ cả Hà Nội lẫn Sài Gòn. <a href="https://en.wikipedia.org/wiki/Vietnamese_boat_people" target="_blank">Wikipedia · Boat People</a></span></li>
+      <li><span class="footnote-num">5</span><span>Nhóm nghiên cứu lịch sử VNCH, <em>Lịch sử Việt Nam Cộng hòa</em> (nhiều tập, xuất bản hải ngoại) — tư liệu từ phía VNCH, quan trọng để đọc song song. <a href="https://en.wikipedia.org/wiki/Republic_of_Vietnam_Armed_Forces" target="_blank">Wikipedia · Quân lực VNCH</a></span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="timeline-wrap" style="padding-top:0">
+
+<!-- ═══════════════════════════════════════════════════ ERA 9 -->
+<section class="era-section" id="era9">
+  <div class="era-header">
+    <div class="era-icon-wrap">
+      <svg viewBox="0 0 36 36" fill="none">
+        <polyline points="4,28 10,20 16,23 22,14 28,17 34,8" stroke="#d4a017" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="10" cy="20" r="2" fill="#d4a017" opacity=".7"/>
+        <circle cx="16" cy="23" r="2" fill="#d4a017" opacity=".7"/>
+        <circle cx="22" cy="14" r="2" fill="#d4a017" opacity=".7"/>
+        <circle cx="28" cy="17" r="2" fill="#d4a017" opacity=".7"/>
+        <circle cx="34" cy="8"  r="2.5" fill="#d4a017"/>
+        <line x1="4" y1="30" x2="34" y2="30" stroke="#d4a017" stroke-width="0.8" opacity=".3"/>
+        <line x1="4" y1="8"  x2="4"  y2="30" stroke="#d4a017" stroke-width="0.8" opacity=".3"/>
+      </svg>
+    </div>
+    <div class="era-title-block">
+      <div class="era-period">1975 – Nay</div>
+      <h2>Sau 1975 — Thống Nhất, Tái Thiết & Đổi Mới</h2>
+      <div class="era-desc">Thập niên đầu đầy khó khăn và những di sản chưa khép lại — rồi Đổi mới 1986 mở ra kỷ nguyên tăng trưởng</div>
+      <div class="era-research">
+        <a class="research-link" href="https://en.wikipedia.org/wiki/Socialist_Republic_of_Vietnam" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · CHXHCN Việt Nam</a>
+        <a class="research-link" href="https://en.wikipedia.org/wiki/%C4%90%E1%BB%95i_M%E1%BB%9Bi" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>Wikipedia · Đổi Mới</a>
+        <a class="research-link" href="https://data.worldbank.org/country/VN" target="_blank"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M7 3l3 3-3 3"/></svg>World Bank · Vietnam Data</a>
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+      <span class="perspective-tag pt-neutral">Sự kiện</span>
+      <div class="tl-year">1975 – 1986</div>
+      <h3>Thập niên khó khăn — Trại cải tạo, Boat People, cô lập kinh tế</h3>
+      <p>Hàng trăm nghìn sĩ quan, công chức, trí thức VNCH bị đưa vào "trại cải tạo" từ vài tháng đến hơn 10 năm — Mỹ và nhiều tổ chức nhân quyền ghi nhận điều kiện khắc nghiệt. Nền kinh tế miền Nam bị tập thể hóa cưỡng bức, gây sụp đổ. Hơn 800.000 người vượt biển (boat people), ước tính 200.000–400.000 thiệt mạng trên biển theo Liên Hợp Quốc. Mỹ cấm vận toàn diện, Liên Xô là nguồn viện trợ chính yếu.</p>
+    </div></div>
+
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card">
+      <span class="perspective-tag pt-neutral">Sự kiện</span>
+      <div class="tl-year">2/7/1976</div>
+      <h3>Thống nhất chính thức — CHXHCN Việt Nam</h3>
+      <p>Hai miền chính thức hợp nhất thành Cộng hòa xã hội chủ nghĩa Việt Nam. Sài Gòn đổi tên thành Thành phố Hồ Chí Minh. Đây là sự thống nhất về hành chính và pháp lý — nhưng những vết nứt xã hội sâu sắc hơn giữa hai miền, giữa người ở lại và người ra đi, vẫn còn hiện diện đến ngày nay.</p>
+    </div></div>
+
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card">
+      <span class="perspective-tag pt-neutral">Sự kiện</span>
+      <div class="tl-year">17/2/1979</div>
+      <h3>Chiến tranh biên giới phía Bắc — Trung Quốc xâm lược</h3>
+      <p>Để "dạy cho Việt Nam một bài học" sau khi Việt Nam can thiệp vào Campuchia lật đổ Khmer Đỏ, Trung Quốc đưa 600.000 quân tấn công 6 tỉnh biên giới. Quân và dân Việt Nam chiến đấu kiên cường. Trung Quốc rút sau 1 tháng nhưng xung đột biên giới, kể cả trận Vị Xuyên, kéo dài đến 1989. Cuộc chiến này ít được sử sách chính thống Trung Quốc đề cập và lâu nay cũng bị lãng quên ở Việt Nam.</p>
+    </div></div>
+
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+      <span class="perspective-tag pt-neutral">Sự kiện</span>
+      <div class="tl-year">12/1986</div>
+      <h3>Đại hội VI — Chính sách Đổi mới</h3>
+      <p>Trước bờ vực sụp đổ kinh tế (lạm phát trên 700%), Đại hội Đảng lần VI thông qua "Đổi mới": công nhận kinh tế thị trường, tư hữu, đầu tư nước ngoài. Đây là bước ngoặt thực dụng mà nhiều học giả so sánh với Glasnost của Gorbachev — nhưng không kèm theo tự do hóa chính trị tương đương.</p>
+    </div></div>
+
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+      <span class="perspective-tag pt-neutral">Sự kiện</span>
+      <div class="tl-year">7/1995</div>
+      <h3>Bình thường hóa với Mỹ — Gia nhập ASEAN</h3>
+      <p>Việt Nam và Mỹ bình thường hóa quan hệ ngoại giao, kết thúc 20 năm thù địch và cấm vận. Cùng tháng, Việt Nam gia nhập ASEAN. Hai mươi năm sau khi kết thúc chiến tranh, cựu thù trở thành đối tác thương mại và — sau này — đối tác chiến lược toàn diện.</p>
+    </div></div>
+
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card">
+      <span class="perspective-tag pt-neutral">Sự kiện</span>
+      <div class="tl-year">2007</div>
+      <h3>Gia nhập WTO — Hội nhập kinh tế toàn cầu</h3>
+      <p>Việt Nam gia nhập WTO (chính thức 11/1/2007). Từ một trong những nước nghèo nhất thế giới, Việt Nam trở thành nền kinh tế tầm trung trong vòng 30 năm Đổi mới — được nhiều tổ chức quốc tế coi là một trong những câu chuyện phát triển thành công nhất châu Á.</p>
+    </div></div>
+
+    <div class="tl-item major"><div class="tl-dot"></div><div class="tl-card">
+      <span class="perspective-tag pt-neutral">Hiện tại</span>
+      <div class="tl-year">2020 – Nay</div>
+      <h3>Những vết thương chưa lành và Việt Nam hôm nay</h3>
+      <p>Với gần 100 triệu dân và GDP top 40 thế giới, Việt Nam là điểm đến đầu tư hàng đầu châu Á. Tuy nhiên, vấn đề nhân quyền và tự do báo chí vẫn bị quốc tế chỉ trích. Cộng đồng người Việt hải ngoại (~5 triệu người) ngày càng có ảnh hưởng kinh tế lớn nhưng quan hệ với trong nước vẫn phức tạp. Hoàng Sa và Trường Sa — bị Trung Quốc chiếm và xây đảo nhân tạo — là điểm nóng đối ngoại chưa có lời giải.</p>
+    </div></div>
+
+  </div>
+  <div class="era-footnote">
+    <div class="era-footnote-title">Nguồn tham khảo — Thời kỳ IX</div>
+    <ul class="footnote-list">
+      <li><span class="footnote-num">1</span><span>UNHCR, <em>The State of the World's Refugees 2000</em>, Oxford UP — số liệu về boat people và người tị nạn Việt Nam. <a href="https://en.wikipedia.org/wiki/Vietnamese_boat_people" target="_blank">Wikipedia · Vietnamese Boat People</a></span></li>
+      <li><span class="footnote-num">2</span><span>Fforde, Adam &amp; De Vylder, Stefan, <em>From Plan to Market: The Economic Transition in Vietnam</em>, Westview Press, 1996. <a href="https://en.wikipedia.org/wiki/%C4%90%E1%BB%95i_M%E1%BB%9Bi" target="_blank">Wikipedia · Đổi Mới</a></span></li>
+      <li><span class="footnote-num">3</span><span>Human Rights Watch, các báo cáo thường niên về Việt Nam, 1990–nay — ghi chép về trại cải tạo và tình trạng nhân quyền. <a href="https://www.hrw.org/asia/vietnam" target="_blank">HRW · Vietnam</a></span></li>
+      <li><span class="footnote-num">4</span><span>World Bank, <em>Vietnam 2035: Toward Prosperity, Creativity, Equity, and Democracy</em>, 2016 — đánh giá toàn diện về con đường phát triển của Việt Nam. <a href="https://data.worldbank.org/country/VN" target="_blank">World Bank · Vietnam</a></span></li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<div class="timeline-footer">
+  <p style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);margin-bottom:8px;">Lịch Sử Việt Nam — Tài liệu Học thuật</p>
+  <p>Timeline này cố gắng trình bày lịch sử theo tiêu chuẩn học thuật quốc tế — không đứng về phía nào, ghi nhận quan điểm của tất cả các bên.</p>
+  <p style="margin-top:6px;opacity:0.6">Nguồn tham khảo từ học giả Việt Nam, Mỹ, Pháp và quốc tế · Sự kiện 1954–1975 được trình bày song song hai phía</p>
+</div>
+
+<script>
+  function scrollToEra(id) {
+    const el = document.getElementById(id);
+    if (el) { const top = el.getBoundingClientRect().top + window.pageYOffset - 100; window.scrollTo({ top, behavior: 'smooth' }); }
+    document.querySelectorAll('.era-btn').forEach(b => b.classList.toggle('active', b.getAttribute('onclick').includes(id)));
+  }
+  const sections = document.querySelectorAll('.era-section');
+  const buttons = document.querySelectorAll('.era-btn');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) { const id = entry.target.id; buttons.forEach(b => b.classList.toggle('active', b.getAttribute('onclick').includes(id))); } });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+  const items = document.querySelectorAll('.tl-item');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  items.forEach(item => { item.style.animationPlayState = 'paused'; io.observe(item); });
+</script>
+</body>
+</html>
